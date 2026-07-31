@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Management System</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="supplier.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="main.html" class="sidebar-logo">
+                    <span>🫐</span> Blueberry ERP
+                </a>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="main.html" class="menu-item">Dashboard</a></li>
+                <li><a href="sales.html" class="menu-item">Sales System</a></li>
+                <li><a href="farmers.html" class="menu-item active">Supplier Management</a></li>
+                <li><a href="category.html" class="menu-item">Packaging System</a></li>
+                <li><a href="report.html" class="menu-item">Financial Reports</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                Blueberry Factory v1.0
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1 class="page-title">Supplier Management System</h1>
+                    <p class="page-description">Manage farm relations, register harvest purchases, and track supply expenses.</p>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Add Farmer Card -->
+                <section class="card" id="farmers-section">
+                    <h2 class="card-title">Add Farmer Profile</h2>
+                    <form id="add-farmer-form">
+                        <div class="form-group">
+                            <label for="farmer-id">Farmer ID</label>
+                            <input type="text" id="farmer-id" placeholder="e.g. F-101" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="farmer-name">Full Name</label>
+                            <input type="text" id="farmer-name" placeholder="Farmer's Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="farmer-contact">Contact Details</label>
+                            <input type="text" id="farmer-contact" placeholder="Phone or Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="farmer-location">Location / Region</label>
+                            <input type="text" id="farmer-location" placeholder="City / District">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Add Farmer</button>
+                    </form>
+                </section>
+
+                <!-- Update Farmer Card -->
+                <section class="card">
+                    <h2 class="card-title">Update Farmer Details</h2>
+                    <form id="update-farmer-form">
+                        <div class="form-group">
+                            <label for="update-farmer-id">Select Farmer</label>
+                            <select id="update-farmer-id">
+                                <option value="">Select Farmer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-farmer-name">Updated Name</label>
+                            <input type="text" id="update-farmer-name" placeholder="New Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-farmer-contact">Updated Contact</label>
+                            <input type="text" id="update-farmer-contact" placeholder="New Contact Details">
+                        </div>
+                        <div class="form-group">
+                            <label for="update-farmer-location">Updated Location</label>
+                            <input type="text" id="update-farmer-location" placeholder="New Location">
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-block">Update Farmer</button>
+                    </form>
+                </section>
+
+                <!-- Farmers Directory & Search Card -->
+                <section class="card">
+                    <h2 class="card-title">Farmers Directory</h2>
+                    <div id="search-farmers" style="margin-bottom: 1.5rem;">
+                        <div class="form-group" style="flex-direction: row; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <input type="text" id="search-query" placeholder="Search by name or location..." style="margin-bottom: 0; flex: 1;">
+                            <button id="search-btn" class="btn btn-secondary">Search</button>
+                        </div>
+                        <ul id="search-results" class="scroll-list" style="margin-top: 0.5rem;"></ul>
+                    </div>
+
+                    <div id="farmers-list">
+                        <label>Registered Farmers</label>
+                        <div class="scroll-list" style="margin-top: 0.5rem;">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Purchase Blueberries Card -->
+                <section class="card" id="purchases-section">
+                    <h2 class="card-title">Log Harvesting Purchase</h2>
+                    <form id="add-purchase-form">
+                        <div class="form-group">
+                            <label for="purchase-farmer-id">Select Farmer</label>
+                            <select id="purchase-farmer-id" required>
+                                <option value="">Select Farmer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="blueberry-type">Type of Blueberries</label>
+                            <select id="blueberry-type" required>
+                                <option value="Fresh">Fresh</option>
+                                <option value="Frozen">Frozen</option>
+                                <option value="Organic">Organic</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="purchase-date">Purchase Date</label>
+                            <input type="date" id="purchase-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="purchase-quantity">Quantity (kg)</label>
+                            <input type="number" id="purchase-quantity" placeholder="e.g. 500" required min="0.1" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="purchase-price">Price per kg (₺)</label>
+                            <input type="number" id="purchase-price" placeholder="e.g. 25" required min="0.1" step="0.1">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Add Purchase Record</button>
+                    </form>
+                </section>
+
+                <!-- Procurement History Card -->
+                <section class="card">
+                    <h2 class="card-title">Procurement History</h2>
+                    <div id="sort-buttons" class="btn-group" style="margin-bottom: 1rem;">
+                        <button id="sort-date" class="btn btn-secondary" style="flex: 1; padding: 0.5rem;">By Date</button>
+                        <button id="sort-farmer" class="btn btn-secondary" style="flex: 1; padding: 0.5rem;">By Farmer</button>
+                        <button id="sort-amount" class="btn btn-secondary" style="flex: 1; padding: 0.5rem;">By Cost</button>
+                    </div>
+                    <div id="purchases-list">
+                        <div class="scroll-list">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Expense Report Card -->
+                <section class="card" id="expense-calculation-section">
+                    <h2 class="card-title">Procurement Expenses</h2>
+                    <div class="form-group">
+                        <label for="time-period">Time Period</label>
+                        <select id="time-period">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="expense-start-date">Start Date</label>
+                        <input type="date" id="expense-start-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="expense-end-date">End Date</label>
+                        <input type="date" id="expense-end-date">
+                    </div>
+                    <button id="generate-expense-report" class="btn btn-primary btn-block" style="margin-top: 1rem;">Generate Expense Report</button>
+                    <div id="expense-report" style="margin-top: 1rem;"></div>
+                </section>
+
+                <!-- Purchase Summary Card -->
+                <section class="card" id="purchase-summary-section">
+                    <h2 class="card-title">Procurement Summary</h2>
+                    <div class="form-group">
+                        <label for="farmer-id-filter">Select Farmer ID</label>
+                        <select id="farmer-id-filter">
+                            <option value="">Select Farmer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="start-date">Start Date</label>
+                        <input type="date" id="start-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="end-date">End Date</label>
+                        <input type="date" id="end-date">
+                    </div>
+                    <button id="generate-summary" class="btn btn-primary btn-block" style="margin-top: 1rem;">Generate Summary</button>
+                    <div id="purchase-summary" style="margin-top: 1rem;"></div>
+                </section>
+
+                <!-- Exports & Data Export Card -->
+                <section class="card" id="export-farmer-details-section">
+                    <h2 class="card-title">Data Actions</h2>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                        Export all registered farmer information in standard comma-separated format.
+                    </p>
+                    <button id="export-farmer-details" class="btn btn-secondary btn-block">
+                        📤 Export Farmers to CSV
+                    </button>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

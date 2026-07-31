@@ -1,0 +1,61 @@
+@import url('theme.css');
+
+/* Page specific overrides for Sales System */
+#pricingStructureOutput {
+    max-height: 180px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+#financialReport {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+#financialReport p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 0.25rem;
+}
+
+#financialReport p strong {
+    color: var(--text-primary);
+}
+
+#totalRevenueOutput {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--success-dark);
+    margin-bottom: 1rem;
+    background-color: var(--success-light);
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+/* Style the status dropdown in the table cells */
+.statusDropdown {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background-color: var(--bg-secondary);
+    font-weight: 600;
+}
+
+.statusDropdown:focus {
+    border-color: var(--primary);
+}
+
+/* Canvas styling */
+#salesChart {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    width: 100% !important;
+    height: auto !important;
+}

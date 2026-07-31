@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueberry Factory - Packaging</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="category.css">
+    <script src="category.js" type="module" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="main.html" class="sidebar-logo">
+                    <span>🫐</span> Blueberry ERP
+                </a>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="main.html" class="menu-item">Dashboard</a></li>
+                <li><a href="sales.html" class="menu-item">Sales System</a></li>
+                <li><a href="farmers.html" class="menu-item">Supplier Management</a></li>
+                <li><a href="category.html" class="menu-item active">Packaging System</a></li>
+                <li><a href="report.html" class="menu-item">Financial Reports</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                Blueberry Factory v1.0
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1 class="page-title">Blueberry Factory Packaging System</h1>
+                    <p class="page-description">Process raw berry inventory into retail sizes, manage standard packaging dimensions, and edit category pricing.</p>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Package Products Form Card -->
+                <section class="card">
+                    <h2 class="card-title">Create Package</h2>
+                    <form id="packageForm">
+                        <div class="form-group">
+                            <label for="category">Select Category</label>
+                            <select id="category" name="category">
+                                <option value="Small">Small (100g)</option>
+                                <option value="Medium">Medium (250g)</option>
+                                <option value="Large">Large (500g)</option>
+                                <option value="Extra Large">Extra Large (1kg)</option>
+                                <option value="Family Pack">Family Pack (2kg)</option>
+                                <option value="Bulk Pack">Bulk Pack (5kg)</option>
+                                <option value="Premium">Premium (Custom weight)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="blueberryType">Select Blueberry Type</label>
+                            <select id="blueberryType" name="blueberryType">
+                                <option value="Fresh">Fresh</option>
+                                <option value="Frozen">Frozen</option>
+                                <option value="Organic">Organic</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="packCount">Number of Packs</label>
+                            <input type="number" id="packCount" min="1" placeholder="e.g. 50" required>
+                        </div>
+
+                        <div class="form-group" id="customWeightInput" style="display: none;">
+                            <label for="customWeight">Custom Weight (kg per pack)</label>
+                            <input type="number" id="customWeight" step="0.01" placeholder="e.g. 10.5">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Package Products</button>
+                    </form>
+                </section>
+
+                <!-- Remaining Quantity Display Card -->
+                <section class="card">
+                    <h2 class="card-title">Remaining Raw Stock</h2>
+                    <div id="remainingQuantityOutput" class="highlight-value" style="font-size: 1rem; color: var(--text-secondary); line-height: 1.8;">
+                        <p>Remaining Fresh Quantity: 0.00 kg</p>
+                        <p>Remaining Frozen Quantity: 0.00 kg</p>
+                        <p>Remaining Organic Quantity: 0.00 kg</p>
+                    </div>
+                </section>
+
+                <!-- Pricing Structure Card -->
+                <section class="card">
+                    <h2 class="card-title">Pricing Structure</h2>
+                    <pre id="pricingStructureOutput"></pre>
+                </section>
+
+                <!-- Update Prices Form Card -->
+                <section class="card">
+                    <h2 class="card-title">Update Category Prices</h2>
+                    <form id="priceUpdateForm">
+                        <div class="form-group">
+                            <label for="priceUpdateCategory">Categories</label>
+                            <select id="priceUpdateCategory" name="priceUpdateCategory">
+                                <option value="Small">Small</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Large">Large</option>
+                                <option value="Extra Large">Extra Large</option>
+                                <option value="Family Pack">Family Pack</option>
+                                <option value="Bulk Pack">Bulk Pack</option>
+                                <option value="Premium">Premium</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPrice">New Price (₺/kg)</label>
+                            <input type="number" id="newPrice" name="newPrice" step="0.01" min="0" placeholder="e.g. 15.50" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-block">Update Price</button>
+                    </form>
+                </section>
+
+                <!-- Packaged Products Output Card -->
+                <section class="card" style="grid-column: span 1;">
+                    <h2 class="card-title">Packaged Products Inventory</h2>
+                    <div class="scroll-list" style="max-height: 350px;">
+                        <pre id="packagedProductsOutput" style="border: none; background: transparent; padding: 0; margin: 0;"></pre>
+                    </div>
+                </section>
+
+                <!-- Products Summary Table Card -->
+                <section class="card" style="grid-column: span 1;">
+                    <h2 class="card-title">Package Summary</h2>
+                    <div class="table-container" style="margin-top: 0;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Package Type</th>
+                                    <th>Total Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsSummaryTable">
+                                <!-- Summary will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

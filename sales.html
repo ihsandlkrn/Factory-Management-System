@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueberry Factory - Sales System</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="sales.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="sales.js" defer></script>
+    <script type="module" src="financial.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="main.html" class="sidebar-logo">
+                    <span>🫐</span> Blueberry ERP
+                </a>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="main.html" class="menu-item">Dashboard</a></li>
+                <li><a href="sales.html" class="menu-item active">Sales System</a></li>
+                <li><a href="farmers.html" class="menu-item">Supplier Management</a></li>
+                <li><a href="category.html" class="menu-item">Packaging System</a></li>
+                <li><a href="report.html" class="menu-item">Financial Reports</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                Blueberry Factory v1.0
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1 class="page-title">Sales Management System</h1>
+                    <p class="page-description">Log customer orders, review pricing models, analyze sales metrics, and export analytics.</p>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Log New Order Card -->
+                <section class="card">
+                    <h2 class="card-title">Log New Order</h2>
+                    <form id="logOrderForm">
+                        <div class="form-group">
+                            <label for="customerName">Customer Name</label>
+                            <input type="text" id="customerName" placeholder="e.g. John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactInfo">Contact Info</label>
+                            <input type="text" id="contactInfo" placeholder="Phone or Email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shippingInfo">Shipping Address</label>
+                            <input type="text" id="shippingInfo" placeholder="Destination Address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productCategory">Product Category</label>
+                            <select id="productCategory">
+                                <!-- Dynamically populated -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="blueberryType">Blueberry Type</label>
+                            <select id="blueberryType">
+                                <option value="Fresh">Fresh</option>
+                                <option value="Frozen">Frozen</option>
+                                <option value="Organic">Organic</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantityOrdered">Quantity Ordered</label>
+                            <input type="number" id="quantityOrdered" min="1" placeholder="Number of units" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="unitPrice">Unit Price (₺)</label>
+                            <input type="text" id="unitPrice" readonly placeholder="Select category to view price">
+                        </div>
+
+                        <!-- Premium Options -->
+                        <div id="premiumOptions" class="form-group" style="display: none; border-left: 3px solid var(--primary); padding-left: 1rem; margin-top: 0.5rem;">
+                            <label for="customWeight">Custom Weight (kg per pack)</label>
+                            <input type="number" id="customWeight" step="0.01" min="0.1" placeholder="e.g. 5.5">
+                            
+                            <label for="packCount" style="margin-top: 0.5rem;">Pack Count</label>
+                            <input type="number" id="packCount" min="1" placeholder="e.g. 10">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Log Customer Order</button>
+                    </form>
+                </section>
+
+                <!-- Pricing & Financial Summary Section -->
+                <div class="flex-column" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <!-- Pricing Structure Card -->
+                    <section class="card" style="flex: 1;">
+                        <h2 class="card-title">Pricing Structure Reference</h2>
+                        <pre id="pricingStructureOutput"></pre>
+                    </section>
+
+                    <!-- Financial Summary Card -->
+                    <section class="card" style="flex: 1;">
+                        <h2 class="card-title">Quick Financial Analysis</h2>
+                        <div id="financialReport" style="line-height: 1.8;">
+                            <p>Loading financial data...</p>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Revenue Details Card -->
+                <section class="card" style="grid-column: span 1;">
+                    <h2 class="card-title">Revenue Dashboard</h2>
+                    <div id="totalRevenueOutput" class="highlight-value">Total Revenue: 0 ₺</div>
+                    <label>Revenue and Units by Category & Type</label>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Category - Type</th>
+                                    <th>Units Sold</th>
+                                    <th>Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody id="revenueByCategoryAndTypeTable">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Order Details Card -->
+                <section class="card" style="grid-column: span 1;">
+                    <h2 class="card-title">All Customer Orders</h2>
+                    <div class="table-container" style="max-height: 350px;">
+                        <table id="orderDetailsTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Category</th>
+                                    <th>Type</th>
+                                    <th>Qty</th>
+                                    <th>Total (₺)</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Details dynamically populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Search and Filter Card -->
+                <section class="card">
+                    <h2 class="card-title">Search & Filter Orders</h2>
+                    <form id="filterOrdersForm">
+                        <div class="form-group">
+                            <label for="searchCustomer">Customer Name</label>
+                            <input type="text" id="searchCustomer" placeholder="Enter customer name...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="searchCategory">Product Category</label>
+                            <select id="searchCategory">
+                                <option value="">All Categories</option>
+                                <option value="Small">Small</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Large">Large</option>
+                                <option value="Extra Large">Extra Large</option>
+                                <option value="Family Pack">Family Pack</option>
+                                <option value="Bulk Pack">Bulk Pack</option>
+                                <option value="Premium">Premium</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="searchStatus">Order Status</label>
+                            <select id="searchStatus">
+                                <option value="">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Processed">Processed</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-secondary btn-block">Filter Database</button>
+                    </form>
+
+                    <div class="table-container" style="margin-top: 1.5rem; max-height: 200px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Category</th>
+                                    <th>Qty</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="filteredOrdersTable">
+                                <!-- Filtered rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Sales Reports & Analytics Card -->
+                <section class="card" style="grid-column: span 1;">
+                    <h2 class="card-title">Sales Analytics & Reports</h2>
+                    <form id="generateReportForm">
+                        <div class="form-group">
+                            <label for="reportCategory">Category</label>
+                            <select id="reportCategory">
+                                <option value="">All Categories</option>
+                                <option value="Small">Small</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Large">Large</option>
+                                <option value="Extra Large">Extra Large</option>
+                                <option value="Family Pack">Family Pack</option>
+                                <option value="Bulk Pack">Bulk Pack</option>
+                                <option value="Premium">Premium</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reportCustomer">Customer Name</label>
+                            <input type="text" id="reportCustomer" placeholder="Enter customer name...">
+                        </div>
+
+                        <div class="form-group-row" style="display: flex; gap: 1rem;">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="reportStartDate">Start Date</label>
+                                <input type="date" id="reportStartDate">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label for="reportEndDate">End Date</label>
+                                <input type="date" id="reportEndDate">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Generate Sales Report</button>
+                    </form>
+
+                    <!-- Hidden JSON data representation as referenced by script -->
+                    <pre id="generatedReportOutput" style="display: none; margin-top: 1rem;"></pre>
+
+                    <div style="margin-top: 2rem;">
+                        <label>Sales Data Visualization</label>
+                        <canvas id="salesChart" style="margin-top: 1rem; width: 100%; height: 200px;"></canvas>
+                    </div>
+
+                    <div class="btn-group" style="margin-top: 1.5rem;">
+                        <button id="exportCsv" class="btn btn-secondary btn-block">📥 Export Report as CSV</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

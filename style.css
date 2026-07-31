@@ -1,0 +1,55 @@
+@import url('theme.css');
+
+/* Page specific overrides for Supplier Management */
+.scroll-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.scroll-list li button {
+    background-color: var(--danger);
+    color: white;
+    border: none;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.scroll-list li button:hover {
+    background-color: var(--danger-hover);
+}
+
+#sort-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#sort-buttons .btn {
+    flex: 1;
+}
+
+#expense-report, #purchase-summary {
+    background-color: var(--bg-primary);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-top: 1rem;
+}
+
+#expense-report h3, #purchase-summary h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+#expense-report p, #purchase-summary p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+}

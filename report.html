@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Report - Factory financials</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="report.css">
+    <script type="module" src="report.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="main.html" class="sidebar-logo">
+                    <span>🫐</span> Blueberry ERP
+                </a>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="main.html" class="menu-item">Dashboard</a></li>
+                <li><a href="sales.html" class="menu-item">Sales System</a></li>
+                <li><a href="farmers.html" class="menu-item">Supplier Management</a></li>
+                <li><a href="category.html" class="menu-item">Packaging System</a></li>
+                <li><a href="report.html" class="menu-item active">Financial Reports</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                Blueberry Factory v1.0
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1 class="page-title">Comprehensive Factory Report</h1>
+                    <p class="page-description">Examine aggregated factory revenue, supply costs, tax applications, and physical inventory stock metrics.</p>
+                </div>
+            </header>
+
+            <div class="dashboard-grid dashboard-grid-full">
+                <!-- Financial Overview Card -->
+                <section class="card" id="reportSection">
+                    <h2 class="card-title">Consolidated Financial Statement</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background-color: var(--primary-light); padding: 1.25rem; border-radius: 8px; border-left: 4px solid var(--primary);">
+                            <label style="font-size: 0.75rem; text-transform: uppercase;">Total Income</label>
+                            <p id="totalIncome" class="highlight-value" style="margin-top: 0.25rem; font-size: 1.35rem; color: var(--primary);">0.00 ₺</p>
+                        </div>
+                        <div style="background-color: var(--danger-light); padding: 1.25rem; border-radius: 8px; border-left: 4px solid var(--danger);">
+                            <label style="font-size: 0.75rem; text-transform: uppercase;">Total Expenses</label>
+                            <p id="totalExpenses" class="highlight-value" style="margin-top: 0.25rem; font-size: 1.35rem; color: var(--danger-dark);">0.00 ₺</p>
+                        </div>
+                        <div style="background-color: var(--warning-light); padding: 1.25rem; border-radius: 8px; border-left: 4px solid var(--warning);">
+                            <label style="font-size: 0.75rem; text-transform: uppercase;">Tax Applied (18%)</label>
+                            <p id="taxApplied" class="highlight-value" style="margin-top: 0.25rem; font-size: 1.35rem; color: var(--warning-dark);">0.00 ₺</p>
+                        </div>
+                        <div style="background-color: var(--success-light); padding: 1.25rem; border-radius: 8px; border-left: 4px solid var(--success);">
+                            <label style="font-size: 0.75rem; text-transform: uppercase;">Net Profit</label>
+                            <p id="netProfit" class="highlight-value" style="margin-top: 0.25rem; font-size: 1.35rem; color: var(--success-dark);">0.00 ₺</p>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                        <!-- Products Sold Card -->
+                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 0.75rem;">Products Sold Per Category</label>
+                            <ul id="productsSoldPerCategory" class="scroll-list" style="border: none; background: transparent; padding: 0;">
+                                <li style="color: var(--text-secondary); font-style: italic;">No records generated.</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Remaining Stock Card -->
+                        <div style="border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+                            <label style="font-weight: 600; display: block; margin-bottom: 0.75rem;">Remaining Stock Per Category</label>
+                            <ul id="remainingStock" class="scroll-list" style="border: none; background: transparent; padding: 0;">
+                                <li style="color: var(--text-secondary); font-style: italic;">No records generated.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button id="generateReportButton" class="btn btn-primary btn-block" style="margin-top: 2rem;">
+                        📊 Generate Financial Statement
+                    </button>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

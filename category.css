@@ -1,0 +1,28 @@
+@import url('theme.css');
+
+/* Page specific overrides for Packaging System */
+#pricingStructureOutput, #packagedProductsOutput {
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+}
+
+#remainingQuantityOutput p {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 0.25rem;
+}
+
+#remainingQuantityOutput p:last-child {
+    border-bottom: none;
+}
